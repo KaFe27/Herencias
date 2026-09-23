@@ -39,46 +39,43 @@ namespace Ucu.Poo.RideShare
 
             DiscordClient discord = new DiscordClient();
 
-            /*
-            Mira a continuación cómo enviar mensajes y archivos a Discord;
-            deberás hacer lo mismo en las clases y métodos adecuados de tu
-            solución. Luego puedes comentar o eliminar este código.
-            */
-
             Console.WriteLine("Conectando con Discord...");
             await discord.LoginAsync(botToken);
-            await discord.SendMessageAsync(channelId, "¡Hola desde C#!");
-            await discord.SendImageAsync(channelId, "bill.jpg", "Mira esta imagen");
-            Console.WriteLine("Mensajes enviados.");
+            UcuRideShare rideShare = new UcuRideShare(discord, channelId);
 
-            /*
-            En este método deberás mostrar un ejemplo de funcionamiento de tu
-            solución. A continuación te planteamos un ejemplo de como hacerlo.
-            Esto no significa que te limites a hacer solamente esto, ¡debes
-            pensar en grande!
+            Driver conductor1 = new Driver(
+                nombre: "Rick",
+                apellido: "Rodriguez",
+                ci: "1.234.567-8",
+                fotoPath: "rick.jpg",
+                calificacionDriver: 4.5,
+                vehiculo: "Fiat gris",
+                bio: "Amable y cordial. 35 años.");
 
-            User pasajero1 = ...
-            User pasajero2 = ...
-            User pasajero3 = ...
-            User conductor1 = ...
-            User conductorPool1 = ...
-            UcuRideShare rideShare = new UcuRideShare()
+            PoolDriver conductorPool1 = new PoolDriver(
+                nombre: "Dan",
+                apellido: "Perez",
+                ci: "2.345.678-9",
+                fotoPath: "dan.jpg",
+                calificacionDriver: 4.8,
+                vehiculo: "Toyota rojo",
+                bio: "Puntual y educado. 50 años.",
+                maxCapacity: 4);
 
-            rideShare.Add(conductor1)
-            Se publica en Discord un nuevo conductor!
+            Passenger pasajero1 = new Passenger(
+                nombre: "Bill",
+                apellido: "Gomez",
+                ci: "3.456.789-1",
+                fotoPath: "bill.jpg",
+                calificacionPassenger: 5.0);
 
-            rideShare.Add(conductorPool1)
-            Se publica en Discord un nuevo conductor!
+            await rideShare.AddDriverAsync(conductor1);
+            await rideShare.AddDriverAsync(conductorPool1);
+            await rideShare.AddPassengerAsync(pasajero1);
+            Console.WriteLine("Registros publicados en Discord.");
 
-            rideShare.Add(pasajero1)
-            Se publica en Discord nuevo registro de pasajero!
-
-            rideShare.Add(pasajero2)
-            Se publica en Discord nuevo registro de pasajero!
-
-            rideShare.Add(pasajero3)
-            Se publica en Discord nuevo registro de pasajero!
-            */
+            
         }
     }
 }
+
